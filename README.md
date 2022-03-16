@@ -10,16 +10,10 @@ _356 group website project_
 
 This project is for educational porpuses only. Pull request are welcome, but priority for project authors! Thank you for your cooperation!
 
-Site published at:
-
-Design: [Node-server-1]()
-
 ## Project features
 
-- Github pages
-- fixed width container
-- header: logo + nav
-- png images
+- Node.js: http
+- Static file serving
 
 ## Authors
 

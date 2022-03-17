@@ -1,3 +1,4 @@
+import { server } from './lib/server.js';
 export const app = {};
 
 app.init = () => {
@@ -9,7 +10,7 @@ app.init = () => {
 
   // start server
 
-  console.log('Server is running...');
+  server.init();
 
   // launching regular processes:
   // -- delete old/unnecessary files

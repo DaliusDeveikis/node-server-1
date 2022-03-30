@@ -1,0 +1,6 @@
+@import '../3rd-party/font-awesome.min.css';
+
+body {
+  background-color: yellow;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

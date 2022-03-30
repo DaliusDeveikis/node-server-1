@@ -1,23 +1,23 @@
 import { server } from './lib/server.js';
-export const app = {};
+
+const app = {};
 
 app.init = () => {
-  // ready for new folders
+    // pasiruosti pradinius folder'ius
 
-  // ready for new files
+    // pasiruosti pradinius failus
 
-  // connect to mysql
+    // prisijungimas prie DB (duomenu baze)
 
-  // start server
+    // uzkurti pati serveri (musu programa)
+    server.init();
 
-  server.init();
-
-  // launching regular processes:
-  // -- delete old/unnecessary files
-  // -- less use of file archiving
-  // -- recoverable information via API
-};
+    // reguliariu procesu paleidimas:
+    // - istrinti senus/nebereikalingus failus
+    // - maziau naudojamu failu archivavimas
+    // - atsinaujinti informacija per/is API
+}
 
 app.init();
 
-console.log(app);
+export { app };

@@ -12,9 +12,9 @@ This project is for educational porpuses only. Pull request are welcome, but pri
 
 ## Project features
 
--   Node.js: http
--   Static file serving
+- Node.js: http
+- Static file serving
 
 ## Authors
 
-Rimantas: [Github](https://github.com/belauzas)
+Dalius: [Github](https://github.com/DaliusDeveikis)

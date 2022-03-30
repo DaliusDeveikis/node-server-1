@@ -1,5 +1,5 @@
 {
-  "name": "36-grupe-server",
+  "name": "Node-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./jest.config.js --watchAll --passWithNoTests"
   },
   "keywords": [],
-  "author": "Rimantas",
+  "author": "Dalius",
   "license": "MIT",
   "devDependencies": {
     "jest": "^27.5.0",

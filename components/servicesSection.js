@@ -6,12 +6,30 @@ async function servicesSection() {
     if (err) {
       return data;
     }
-    console.log(servicesFiles);
+    for (const serviceFileName of servicesFiles) {
+      const [err, fileContent] = await file.read('services', serviceFileName);
+      if (err) {
+        continue;
+      }
+      let obj = null;
+      try {
+        obj = JSON.parse(fileContent);
+      } catch (error) {
+        obj = false;
+      }
+
+      if (!obj) {
+        continue;
+      }
+
+      data.push(obj);
+    }
     return data;
   };
 
-  const renderList = () => {
-    const servicesData = getServicesData();
+  const renderList = async () => {
+    const servicesData = await getServicesData();
+    console.log(servicesData);
     if (!Array.isArray(servicesData) || servicesData.length === 0) {
       return '';
     }
@@ -31,7 +49,7 @@ async function servicesSection() {
                     <h2>Services</h2>
                     <p>Each time a digital asset is purchased or sold, Sequoir donates a percentage of the fees back into the development of the asset through its charitable foundation.</p>
                 </div>
-                <div class="row services-list">${renderList()}</div>
+                <div class="row services-list">${await renderList()}</div>
             </section>`;
 }
 

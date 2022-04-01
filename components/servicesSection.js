@@ -1,4 +1,31 @@
 import { file } from '../lib/file.js';
+import { utils } from '../lib/utils.js';
+
+const isValidService = service => {
+  const servicesKeysCount = 3;
+  if (
+    typeof service !== 'object' ||
+    Array.isArray(service) ||
+    service === null ||
+    Object.keys(service).length > servicesKeysCount ||
+    Object.keys(service).length < servicesKeysCount
+  ) {
+    return false;
+  }
+
+  // if (typeof service !== 'object'
+  //     || Object.keys(service).length > servicesKeysCount
+  //     || typeof service.icon !== 'string'
+  //     || service.icon === ''
+  //     || typeof service.title !== 'string'
+  //     || service.title === ''
+  //     || typeof service.description !== 'string'
+  //     || service.description === '') {
+  //     return false;
+  // }
+  return true;
+};
+
 async function servicesSection() {
   const getServicesData = async () => {
     const data = [];
@@ -6,35 +33,35 @@ async function servicesSection() {
     if (err) {
       return data;
     }
+
     for (const serviceFileName of servicesFiles) {
-      const [err, fileContent] = await file.read('services', serviceFileName);
+      const [err, content] = await file.read('services', serviceFileName);
       if (err) {
         continue;
       }
-      let obj = null;
-      try {
-        obj = JSON.parse(fileContent);
-      } catch (error) {
-        obj = false;
-      }
 
+      let obj = utils.parseJSONtoObject(content);
       if (!obj) {
         continue;
       }
 
       data.push(obj);
     }
+
     return data;
   };
 
   const renderList = async () => {
     const servicesData = await getServicesData();
-    console.log(servicesData);
     if (!Array.isArray(servicesData) || servicesData.length === 0) {
       return '';
     }
+
     let HTML = '';
     for (const service of servicesData) {
+      if (!isValidService(service)) {
+        continue;
+      }
       HTML += `<div class="service">
                         <i class="fa fa-${service.icon} icon"></i>
                         <h3 class="title">${service.title}</h3>
@@ -53,4 +80,4 @@ async function servicesSection() {
             </section>`;
 }
 
-export { servicesSection };
+export { servicesSection, isValidService };

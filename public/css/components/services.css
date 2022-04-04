@@ -1,26 +1,26 @@
 .services {
-    color: #fff;
-    text-align: center;
+  color: #fff;
+  text-align: center;
 }
 
 .services .services-list {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 .services .services-list > .service {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px;
-    background-color: #fff;
-    color: initial;
-    border-radius: 10px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: #fff;
+  color: initial;
+  border-radius: 10px;
 }
 .services .service > .icon {
-    color: var(--primary-color);
-    font-size: 3em;
+  color: var(--primary-color);
+  font-size: 3em;
 }
 .services .service > .title {
 }
@@ -28,7 +28,7 @@
 }
 
 @media (min-width: 800px) {
-    .services .services-list {
-        flex-direction: row;
-    }
+  .services .services-list {
+    flex-direction: row;
+  }
 }

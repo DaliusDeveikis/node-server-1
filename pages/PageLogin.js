@@ -1,19 +1,19 @@
-import { PageTemplate } from "../lib/PageTemplate.js";
+import { PageTemplate } from '../lib/PageTemplate.js';
 
 class PageLogin extends PageTemplate {
-    /**
-     * Sabloninio puslapio konstruktorius.
-     * @constructor
-     * @param {object} data Duomenu objektas
-     */
-    constructor(data) {
-        super(data);
-        this.pageCSSfileName = 'auth';
-        this.pageJSfileName = 'auth';
-    }
+  /**
+   * Sabloninio puslapio konstruktorius.
+   * @constructor
+   * @param {object} data Duomenu objektas
+   */
+  constructor(data) {
+    super(data);
+    this.pageCSSfileName = 'auth';
+    this.pageJSfileName = 'auth';
+  }
 
-    mainHTML() {
-        return `<section class="container hero">
+  mainHTML() {
+    return `<section class="container hero">
                     <div class="row">
                         <div class="left">
                             <h1>Login</h1>
@@ -24,8 +24,8 @@ class PageLogin extends PageTemplate {
                                     <input id="email" data-validation="email" type="text" placeholder="Type email" value="chuck@norris.com" required>
                                 </div>
                                 <div class="form-row">
-                                    <label for="pass">Password</label>
-                                    <input id="pass" data-validation="password" type="password" placeholder="Type password" value="chuckchuckchuck" required>
+                                    <label for="password">Password</label>
+                                    <input id="password" data-validation="password" type="password" placeholder="Type password" value="chuckchuckchuck" required>
                                 </div>
                                 <div class="form-row">
                                     <button type="submit" class="btn">Log in</button>
@@ -37,7 +37,7 @@ class PageLogin extends PageTemplate {
                         </div>
                     </div>
                 </section>`;
-    }
+  }
 }
 
 export { PageLogin };

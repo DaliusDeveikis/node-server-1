@@ -1,19 +1,19 @@
-import { PageTemplate } from "../lib/PageTemplate.js";
+import { PageTemplate } from '../lib/PageTemplate.js';
 
 class PageRegister extends PageTemplate {
-    /**
-     * Sabloninio puslapio konstruktorius.
-     * @constructor
-     * @param {object} data Duomenu objektas
-     */
-    constructor(data) {
-        super(data);
-        this.pageCSSfileName = 'auth';
-        this.pageJSfileName = 'auth';
-    }
+  /**
+   * Sabloninio puslapio konstruktorius.
+   * @constructor
+   * @param {object} data Duomenu objektas
+   */
+  constructor(data) {
+    super(data);
+    this.pageCSSfileName = 'auth';
+    this.pageJSfileName = 'auth';
+  }
 
-    mainHTML() {
-        return `<section class="container hero">
+  mainHTML() {
+    return `<section class="container hero">
                     <div class="row">
                         <div class="left">
                             <h1>Register</h1>
@@ -28,8 +28,8 @@ class PageRegister extends PageTemplate {
                                     <input id="email" data-validation="email" type="email" placeholder="Type email" required value="chuck@norris.com">
                                 </div>
                                 <div class="form-row">
-                                    <label for="pass">Password</label>
-                                    <input id="pass" data-validation="password" type="password" placeholder="Type password" required value="chuckchuckchuck">
+                                    <label for="password">Password</label>
+                                    <input id="password" data-validation="password" type="password" placeholder="Type password" required value="chuckchuckchuck">
                                 </div>
                                 <div class="form-row">
                                     <label for="repass">Repeat password</label>
@@ -45,7 +45,7 @@ class PageRegister extends PageTemplate {
                         </div>
                     </div>
                 </section>`;
-    }
+  }
 }
 
 export { PageRegister };

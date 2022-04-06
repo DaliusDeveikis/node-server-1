@@ -1,34 +1,43 @@
-console.log(1234);
+import { IsValid } from '../components/is-valid/IsValid.js';
 
 /*
-1) Susirasti forma ir jos Visus laukus
-2) Surinkti informacija is formos
+1) susirasti forma ir jos VISUS laukus
+2) surinkti informacija is formos
 3) FE validacija
-4-a) Jei yra klaidu - atvaizduojame
-4-b) Jei nera klaidu -siunciame i serveri.
-5) Is serverio gauta atsakima interpretuojame ir kazka darome
-6-a) jei serveris rado kalidu -atvaizduojame
-6-b) jei serveris ne rado klaidu --End
+4a) jei yra klaidu - atvaizduojame
+4b) jei nera klaidu - siunciame info objekta i serveri
+5) is serverio gauta atsakima interpretuojame ir kazka darome
+6a) jei serveris rado klaidu - atvaizduojame
+6b) jei serveris ne rado klaidu - END
 */
 
 const formDOM = document.querySelector('.form');
-const errorsDOM = document.querySelector('.form-errors');
-const allInputDOM = document.querySelectorAll('input');
-const submitDOM = document.querySelector('button');
+const errorsDOM = formDOM.querySelector('.form-errors');
+const allInputsDOM = formDOM.querySelectorAll('input');
+const submitDOM = formDOM.querySelector('button');
 
 submitDOM.addEventListener('click', e => {
   e.preventDefault();
 
+  const errors = [];
   const formData = {};
-  for (const inputDOM of allInputDOM) {
-    const { id, value } = inputDOM;
+  for (const inputDOM of allInputsDOM) {
+    const { id, value, dataset } = inputDOM;
+    const validationRule = IsValid[dataset.validation];
+    const [err, status] = validationRule(value);
+    if (err) {
+      errors.push(status);
+    }
     formData[id] = value;
   }
-  if (formData.pass !== formData.repass) {
-    errorsDOM.innerText = 'Nesutampa slaptazodziai';
-    return;
-  } else {
-    errorsDOM.innerText = '';
+
+  if (formData.password !== formData.repass) {
+    errors.push('Nesutampa slaptazodziai');
   }
-  console.log('Siunciame i serveri', formData);
+  errorsDOM.innerText = errors.join('\r\n');
+
+  if (errors.length === 0) {
+    delete formData.repass;
+    console.log('SIUNCIAME I SERVERI:', formData);
+  }
 });

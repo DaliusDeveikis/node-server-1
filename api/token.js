@@ -83,14 +83,28 @@ handler._method.post = async (data, callback) => {
       msg: 'Klaida bandant isduoti sesijos Token'
     });
   }
-
-  return callback(200, {
-    status: 'Success',
-    msg: {
-      id: tokenID,
-      ...token
+  const cookies = [
+    'login-token=' + tokenID,
+    'path=/',
+    'domain=localhost',
+    'max-age=' + config.cookiesMaxAge,
+    //'Secure'
+    'SameSite=Lax',
+    'HttpOnly'
+  ];
+  return callback(
+    200,
+    {
+      status: 'Success',
+      msg: {
+        id: tokenID,
+        ...token
+      }
+    },
+    {
+      'Set-Cookie': cookies.join('; ')
     }
-  });
+  );
 };
 
 handler._method.get = (data, callback) => {
@@ -112,6 +126,18 @@ handler._method.delete = (data, callback) => {
     action: 'DELETE',
     msg: 'TOKEN sekmingai istrintas is sistemos'
   });
+};
+
+handler._method.verify = async token => {
+  if (
+    typeof token !== 'string' ||
+    token === '' ||
+    token.length !== config.sessionTokenLength
+  ) {
+    return false;
+  }
+  const [readErr] = await file.read('token', token + './json');
+  return !readErr;
 };
 
 export default handler;

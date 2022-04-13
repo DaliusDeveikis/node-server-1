@@ -1,7 +1,7 @@
-import config from '../config.js';
 import { file } from '../lib/file.js';
 import { IsValid } from '../lib/IsValid.js';
 import { utils } from '../lib/utils.js';
+import config from '../config.js';
 
 const handler = {};
 
@@ -83,15 +83,18 @@ handler._method.post = async (data, callback) => {
       msg: 'Klaida bandant isduoti sesijos Token'
     });
   }
+
   const cookies = [
     'login-token=' + tokenID,
     'path=/',
     'domain=localhost',
     'max-age=' + config.cookiesMaxAge,
-    //'Secure'
+    'expires=Sun, 16 Jul 3567 06:23:41 GMT',
+    // 'Secure',
     'SameSite=Lax',
     'HttpOnly'
   ];
+
   return callback(
     200,
     {
@@ -99,6 +102,10 @@ handler._method.post = async (data, callback) => {
       msg: {
         id: tokenID,
         ...token
+      },
+      action: {
+        type: 'redirect',
+        href: '/'
       }
     },
     {
@@ -129,14 +136,11 @@ handler._method.delete = (data, callback) => {
 };
 
 handler._method.verify = async token => {
-  if (
-    typeof token !== 'string' ||
-    token === '' ||
-    token.length !== config.sessionTokenLength
-  ) {
+  if (typeof token !== 'string' || token.length !== config.sessionTokenLength) {
     return false;
   }
-  const [readErr] = await file.read('token', token + './json');
+
+  const [readErr] = await file.read('token', token + '.json');
   return !readErr;
 };
 

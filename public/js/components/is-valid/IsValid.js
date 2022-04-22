@@ -71,6 +71,59 @@ class IsValid {
     }
     return [false, 'OK'];
   }
+  static title(text) {
+    const minSize = 5;
+    const maxSize = 30;
+    if (typeof text !== 'string' || text === '') {
+      return [true, 'Turi buti ne tuscias tekstas'];
+    }
+    if (text.length < minSize || text.length > maxSize) {
+      return [
+        true,
+        `Negali buti maziau nei ${minSize} ir daugiau nei ${maxSize} simboliu`
+      ];
+    }
+    return [false, 'OK'];
+  }
+  static slug(text) {
+    const allowedCharacters = [
+      'zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP'
+    ];
+    const minSize = 5;
+    const maxSize = 15;
+    if (typeof text !== 'string' || text === '') {
+      return [true, 'Turi buti ne tuscias tekstas'];
+    }
+    if (text.includes(' ')) {
+      return [true, 'Negali buti tarpo'];
+    }
+    if (text.length < minSize || text.length > maxSize) {
+      return [
+        true,
+        `Negali buti maziau nei ${minSize} ir daugiau nei ${maxSize} simboliu`
+      ];
+    }
+    for (const char of allowedCharacters) {
+      if (!text.includes(char)) {
+        return [true, 'Slug: neleistinas simbolis'];
+      }
+    }
+    return [false, 'OK'];
+  }
+  static content(text) {
+    const minSize = 20;
+    const maxSize = 500;
+    if (typeof text !== 'string' || text === '') {
+      return [true, 'Turi buti ne tuscias tekstas'];
+    }
+    if (text.length < minSize || text.length > maxSize) {
+      return [
+        true,
+        `Negali buti maziau nei ${minSize} ir daugiau nei ${maxSize} simboliu`
+      ];
+    }
+    return [false, 'OK'];
+  }
 }
 
 export { IsValid };

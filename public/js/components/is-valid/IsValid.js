@@ -86,9 +86,9 @@ class IsValid {
     return [false, 'OK'];
   }
   static slug(text) {
-    const allowedCharacters = [
-      'zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP'
-    ];
+    // const allowedCharacters = [
+    //   'zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP'
+    // ];
     const minSize = 5;
     const maxSize = 15;
     if (typeof text !== 'string' || text === '') {
@@ -103,11 +103,11 @@ class IsValid {
         `Negali buti maziau nei ${minSize} ir daugiau nei ${maxSize} simboliu`
       ];
     }
-    for (const char of allowedCharacters) {
-      if (!text.includes(char)) {
-        return [true, 'Slug: neleistinas simbolis'];
-      }
-    }
+    // for (const char of allowedCharacters) {
+    //   if (!text.includes(char)) {
+    //     return [true, 'Slug: neleistinas simbolis'];
+    //   }
+    // }
     return [false, 'OK'];
   }
   static content(text) {

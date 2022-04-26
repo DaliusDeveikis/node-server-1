@@ -72,7 +72,6 @@ async function blogsSection() {
     if (err) {
       return data;
     }
-
     for (const blogFileName of blogsFiles) {
       const [err, content] = await file.read('blog', blogFileName);
       if (err) {
@@ -83,10 +82,9 @@ async function blogsSection() {
       if (!obj) {
         continue;
       }
-
       data.push(obj);
     }
-    return data;
+    return data.sort((a, b) => b.lastUpdated - a.lastUpdated);
   };
 
   /**

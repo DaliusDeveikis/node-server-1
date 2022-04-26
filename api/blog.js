@@ -95,7 +95,6 @@ handler._method.post = async (data, callback) => {
 handler._method.get = async (data, callback) => {
   const url = data.trimmedPath;
   const blogSlug = url.split('/')[2];
-
   return callback(200, {
     status: 'Success',
     msg: content

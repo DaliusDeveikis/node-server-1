@@ -1,5 +1,4 @@
 import { PageTemplate } from '../lib/PageTemplate.js';
-import { file } from '../lib/file.js';
 
 class PageBlogPost extends PageTemplate {
   /**
@@ -12,18 +11,12 @@ class PageBlogPost extends PageTemplate {
     this.pageCSSfileName = 'blog-post';
   }
 
-  async getBlogPostData() {
-    const postSlug = this.data.trimmedPath.split('/')[1].trim();
-    try {
-      const fileContent = await file.read(
-        '/data/blog-posts',
-        postSlug + '.json'
-      );
-      const contentObj = utils.parseJSONtoObject(fileContent);
-      return contentObj;
-    } catch (error) {
-      return false;
-    }
+  getPostData() {
+    return {};
+  }
+
+  isValidPost() {
+    return true;
   }
 
   badPostHTML() {
@@ -48,8 +41,8 @@ class PageBlogPost extends PageTemplate {
     return true;
   }
 
-  async mainHTML() {
-    const postData = await this.getBlogPostData();
+  mainHTML() {
+    const postData = this.getPostData();
     if (this.isValidPost(postData)) {
       return this.correctPostHTML(postData);
     } else {

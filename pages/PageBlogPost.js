@@ -1,3 +1,4 @@
+import { file } from '../lib/file.js';
 import { PageTemplate } from '../lib/PageTemplate.js';
 
 class PageBlogPost extends PageTemplate {
@@ -11,11 +12,39 @@ class PageBlogPost extends PageTemplate {
     this.pageCSSfileName = 'blog-post';
   }
 
-  getPostData() {
-    return {};
+  async getPostData() {
+    const trim = this.data.trimmedPath.split('/');
+    const [ErrBlog, readContent] = await file.read('blog', trim[1] + '.json');
+    if (ErrBlog) {
+      return {};
+    }
+    const blogContent = JSON.parse(readContent);
+    const [ErrAccount, accountsContent] = await file.read(
+      'accounts',
+      blogContent.author + '.json'
+    );
+    if (ErrAccount) {
+      return (blogContent.name = 'Anonymouse');
+    }
+    const accounts = JSON.parse(accountsContent);
+    blogContent.name = accounts.username;
+    return blogContent;
   }
 
-  isValidPost() {
+  isValidPost(post) {
+    if (typeof post !== 'object' || Array.isArray(post) || post === null) {
+      return false;
+    }
+    if (
+      post.title === '' ||
+      post.content === '' ||
+      post.name === '' ||
+      typeof post.title !== 'string' ||
+      typeof post.content !== 'string' ||
+      typeof post.name !== 'string'
+    ) {
+      return false;
+    }
     return true;
   }
 
@@ -30,19 +59,14 @@ class PageBlogPost extends PageTemplate {
     return `<section class="container blog-inner">
                     <h1 class="row title">${post.title}</h1>
                     <p class="row">${post.content}</p>
-                    <footer class="row">Author</footer>
+                    <footer class="row">${post.name}</footer>
+
                 </section>`;
   }
 
-  isValidPost(post) {
-    if (typeof post !== 'object' || Array.isArray(post) || post === null) {
-      return false;
-    }
-    return true;
-  }
-
-  mainHTML() {
-    const postData = this.getPostData();
+  async mainHTML() {
+    console.log(this.data.searchParams);
+    const postData = await this.getPostData();
     if (this.isValidPost(postData)) {
       return this.correctPostHTML(postData);
     } else {

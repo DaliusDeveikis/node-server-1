@@ -1,5 +1,6 @@
 import { file } from '../lib/file.js';
 import { IsValid } from '../lib/IsValid.js';
+import accounts from '../api/account.js';
 import { utils } from '../lib/utils.js';
 
 const handler = {};
@@ -15,7 +16,6 @@ handler.blog = async (data, callback) => {
 };
 
 handler._method = {};
-
 /**
  * Blog post sukurimas
  */
@@ -76,6 +76,21 @@ handler._method.post = async (data, callback) => {
     return callback(200, {
       status: 'Error',
       msg: 'Klaida bandant irasyti blog posta'
+    });
+  }
+  const updatedUser = { ...data.user };
+  delete updatedUser.isLoggedIn;
+  updatedUser.posts.push(post.slug);
+
+  let [err] = await file.update(
+    'accounts',
+    data.user.email + '.json',
+    updatedUser
+  );
+  if (err) {
+    return callback(200, {
+      status: 'Error',
+      msg: 'Klaida bandant irasyti bloga vatotojui'
     });
   }
 

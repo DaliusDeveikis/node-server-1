@@ -81,6 +81,7 @@ handler._method.post = async (data, callback) => {
   user.passwordChanges = 0;
   user.lastLoginDate = 0;
   user.loginHistory = [];
+  user.posts = [];
 
   // 6) sukuriame [email].json ir i ji irasome vartotojo objekta
   const [userCreateError] = await file.create('accounts', userFile, user);
